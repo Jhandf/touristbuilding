@@ -145,22 +145,10 @@ export const MapProvider = ({ children }: Props) => {
 
             let popupContent;
 
-            const zoom = map?.getZoom();
-
-            const nearbyMarker = markers.find((m) => {
-                const newMarkerLngLat = { lng: lng, lat: lat };
-                const mLngLat = m.getLngLat();
-
-                const threshold = 20 / Math.pow(2, zoom!);
-
-                const isCloseEnough =
-                    Math.abs(newMarkerLngLat.lng - mLngLat.lng) < threshold &&
-                    Math.abs(newMarkerLngLat.lat - mLngLat.lat) < threshold;
-
-                return isCloseEnough;
-            });
-
-            if (nearbyMarker) {
+            if (
+                lng - newPlace[0].center[0] > 0.000000111 &&
+                lat - newPlace[0].center[1] > 0.000000111
+            ) {
                 popupContent = `
                 <h6 style="font-size: 16px; font-weight: bold;">${newPlace[0].text}</h6>
                 <p class='text-muted' style='font-size: 12px;'>${newPlace[0].context[0].text}, ${newPlace[0].context[2].text}, ${newPlace[0].context[3].text}, ${newPlace[0].context[4].text}</p>
@@ -190,6 +178,21 @@ export const MapProvider = ({ children }: Props) => {
                 .setLngLat([lng, lat])
                 .setPopup(popup)
                 .addTo(map!);
+
+            const zoom = map?.getZoom();
+
+            const nearbyMarker = markers.find((m) => {
+                const newMarkerLngLat = newMarker.getLngLat();
+                const mLngLat = m.getLngLat();
+
+                const threshold = 0.00000111 / Math.pow(2, zoom!);
+
+                const isCloseEnough =
+                    Math.abs(newMarkerLngLat.lng - mLngLat.lng) < threshold &&
+                    Math.abs(newMarkerLngLat.lat - mLngLat.lat) < threshold;
+
+                return isCloseEnough;
+            });
 
             if (nearbyMarker) {
                 nearbyMarker.togglePopup();
