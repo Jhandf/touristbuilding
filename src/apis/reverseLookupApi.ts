@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const access_token =
-    'pk.eyJ1IjoiamhhbmRmIiwiYSI6ImNscTE2dWRsNjA2M2kycnBrYTkyaDNoNmUifQ.eC5QMbTMcjfgYprEUfIU7w';
+    'pk.eyJ1IjoiaGlldTc5MTE1IiwiYSI6ImNscXVvamFidjVjazgyaXB3N3J4NGUzdGUifQ.ZJdurJCgykTjAYAT8x-Cnw';
 
 const reverseLookupApi = axios.create({
     baseURL: 'https://api.mapbox.com/geocoding/v5/mapbox.places/',
